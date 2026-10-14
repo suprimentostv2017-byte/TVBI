@@ -24,10 +24,13 @@
             position: absolute;
             top: 0;
             left: 0;
+
             width: 100vw;
             height: 100vh;
+
             opacity: 0;
             visibility: hidden;
+
             transition: opacity 1s ease;
         }
 
@@ -68,6 +71,18 @@
     </div>
 
 
+ <div class="pagina">
+
+        <iframe
+            src="https://app.powerbi.com/reportEmbed?reportId=06f06ba9-5c9d-409c-b134-7935c9755efc&autoAuth=true&ctid=5367a55c-9b5a-4c6c-97e0-bac44bae1b2c&pageName=aa171c230d1602cd0e4"
+            allowfullscreen="true">
+        </iframe>
+
+    </div>
+
+
+
+
     <script>
 
         const paginas = document.querySelectorAll(".pagina");
@@ -94,6 +109,7 @@
             paginas[paginaAtual].classList.add("ativa");
 
         }, tempoTroca);
+        setTimeout(() => location.reload(), 40 * 60 * 1000);
 
     </script>
 
