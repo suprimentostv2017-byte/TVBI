@@ -85,31 +85,28 @@
 
     <script>
 
-        const paginas = document.querySelectorAll(".pagina");
+       
+    const paginas = document.querySelectorAll(".pagina");
+    let paginaAtual = 0;
 
-        let paginaAtual = 0;
+    const tempoTroca = 60000;            // 1 min em cada página
+    const tempoRecarga = 40 * 60000;     // recarrega cada relatório a cada 40 min
+    const ultimaRecarga = Array.from(paginas, () => Date.now());
 
-        // 30 segundos em cada página
-        const tempoTroca = 59000;
+    setInterval(() => {
+        paginas[paginaAtual].classList.remove("ativa");
+        paginaAtual = (paginaAtual + 1) % paginas.length;
+        paginas[paginaAtual].classList.add("ativa");
 
-        setInterval(() => {
+        // Recarrega só a página que acabou de sair da tela, se já passou do tempo
+        const anterior = (paginaAtual - 1 + paginas.length) % paginas.length;
+        if (Date.now() - ultimaRecarga[anterior] > tempoRecarga) {
+            const iframe = paginas[anterior].querySelector("iframe");
+            iframe.src = iframe.src;
+            ultimaRecarga[anterior] = Date.now();
+        }
+    }, tempoTroca);
 
-            // Esconde a atual
-            paginas[paginaAtual].classList.remove("ativa");
-
-            // Próxima
-            paginaAtual++;
-
-            // Voltou ao início
-            if (paginaAtual >= paginas.length) {
-                paginaAtual = 0;
-            }
-
-            // Mostra a próxima
-            paginas[paginaAtual].classList.add("ativa");
-
-        }, tempoTroca);
-        setTimeout(() => location.reload(), 40 * 60 * 1000);
 
     </script>
 
